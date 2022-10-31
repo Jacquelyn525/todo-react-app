@@ -1,8 +1,12 @@
+//#region Imports
+
 import React, { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 import ToDoEdit from './ToDoEdit';
-import axios from 'axios';
+import { deleteToDo } from '../../api/todoapi';
+
+//#endregion
 
 // {
 //     "toDoId": 1,
@@ -17,22 +21,18 @@ import axios from 'axios';
 //     }
 // }
 
-export default function SingleToDos(props) {
-  console.log(props);
+export default function SingleToDos({ getToDos, ToDoItem }) {
   const { currentUser } = useAuth();
   const [showEdit, setShowEdit] = useState(false);
 
-  const getToDos = () => {
-    props.getToDos();
-  }
+  const refreshToDos = () => {
+    getToDos();
+  };
 
-
-  const deleteToDos = (id) => {
-    if (
-      window.confirm(`Are you sure you want to delete ${props.todos.name}?`)
-    ) {
-      axios.delete(`https://localhost:7202/api/ToDos/${id}`).then(() => {
-        getToDos();
+  const deleteToDos = (toDoId) => {
+    if (window.confirm(`Are you sure you want to delete ${ToDoItem.name}?`)) {
+      deleteToDo(toDoId).then(() => {
+        refreshToDos();
       });
     }
   };
@@ -48,33 +48,33 @@ export default function SingleToDos(props) {
           <button
             className="m-1 rounded"
             id="deleteLink"
-            onClick={() => deleteToDos(props.todos.toDoId)}
+            onClick={() => deleteToDos(ToDoItem.toDoId)}
           >
             <FaTrashAlt />
           </button>
           {showEdit && (
             <ToDoEdit
-              todos={props.todos}
+              toDoItem={ToDoItem}
               showEdit={showEdit}
               setShowEdit={setShowEdit}
-              getTodos={props.getTodos}
+              getToDos={getToDos}
             />
           )}
         </div>
       )}
-      <h3>{props.todos.name}</h3>
-      {props.todos.description !== null ? (
-        <p>{props.todos.description}</p>
+      <h3>{ToDoItem.name}</h3>
+      {ToDoItem.description !== null ? (
+        <p>{ToDoItem.description}</p>
       ) : (
         <p>No Description Provided</p>
       )}
       <a
-        href={props.todos.url}
+        href={ToDoItem.url}
         target="_blank"
         rel="noreferrer"
         className="btn btn-info"
       >
-        Visit {props.todos.linkText}
+        Visit {ToDoItem.linkText}
       </a>
     </div>
   );

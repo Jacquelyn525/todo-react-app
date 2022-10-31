@@ -30,12 +30,12 @@ export default function ToDos() {
   //#region Hooks
 
   const { currentUser } = useAuth();
-  const [todos, setTodos] = useState([]);
+  const [toDoItems, setToDoItems] = useState([]);
   const [showCreate, setShowCreate] = useState(false);
   const [filter, setFilter] = useState(0);
 
   const fetchToDos = () =>
-    getToDos().then((response) => setTodos(response.data));
+    getToDos().then((response) => setToDoItems(response.data));
 
   useEffect(() => {
     fetchToDos();
@@ -68,16 +68,16 @@ export default function ToDos() {
         <FilterCat setFilter={setFilter} />
         <article className="todosGallery row justify-content-center">
           {filter === 0
-            ? todos.map((x) => (
-                <SingleToDos key={x.toDoId} todos={x} getToDos={fetchToDos} />
+            ? toDoItems.map((ToDoItem) => (
+                <SingleToDos key={ToDoItem.toDoId} ToDoItem={ToDoItem} getToDos={fetchToDos} />
               ))
-            : todos
-                .filter((x) => x.categoryId === filter)
-                .map((x) => (
-                  <SingleToDos key={x.toDoId} todos={x} getToDos={fetchToDos} />
+            : toDoItems
+                .filter((ToDoItem) => ToDoItem.categoryId === filter)
+                .map((ToDoItem) => (
+                  <SingleToDos key={ToDoItem.toDoId} ToDoItem={ToDoItem} getToDos={fetchToDos} />
                 ))}
           {filter !== 0 &&
-            todos.filter((x) => x.categoryId === filter).length === 0 && (
+            toDoItems.filter((ToDoItem) => ToDoItem.categoryId === filter).length === 0 && (
               <h2 className="alert alert-warning text-dark">
                 There are no results for this category.
               </h2>
