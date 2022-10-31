@@ -7,7 +7,6 @@ export default function FilterCat(props) {
 
 useEffect(() => {
     axios.get('https://localhost:7202/api/Categories').then(response => {
-        // console.log(response)
         setCategories(response.data)
 
     })
