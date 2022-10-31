@@ -16,9 +16,7 @@ export default function AuthProvider({children}) {
     const githubAuthProvider = new GithubAuthProvider()
 
     async function login() {
-        console.log('got to login');
         return (signInWithPopup(auth, githubAuthProvider).then(authData => {
-            console.log(authData)
             setCurrentUser(authData.user)            
         }))
     }

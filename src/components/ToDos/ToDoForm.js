@@ -11,7 +11,7 @@ export default function ToDosForm(props) {
         axios.get(`https://localhost:7202/api/Categories`).then(response => setCategories(response.data))
     }
     const handleSubmit = (values) => {
-        console.log(values)        
+        // console.log(values)        
         if(values.done === '0'){
             values.done = false
         }else{
