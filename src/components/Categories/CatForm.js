@@ -6,7 +6,7 @@ import axios from 'axios'
 export default function CatForm(props) {
 
     const handleSubmit = (values) => {
-        console.log(values)        
+        // console.log(values)        
         if(!props.category){            
             const catToCreate = values            
             axios.post(`https://localhost:7202/api/Categories`, catToCreate).then(() => {

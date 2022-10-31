@@ -37,6 +37,16 @@
     "**/src/components/NotFound.css": true,
     "**/src/components/NotFound.js": true,
     "**/src/App.css": true,
-    "**/src/base.js": true
+    "**/src/base.js": true,
+    "**/src/components/Footer.js": true,
+    "**/src/components/ProtectedRoute.js": true,
+    "**/src/components/Auth": true,
+    "**/src/contexts": true,
+    "**/src/components/Navigation.js": true,
+    "**/.env": true,
+    "**/package.json": true,
+    "**/src/components/Categories": true,
+    "**/src/components/ToDos/ToDos.css": true,
+    "**/.prettierrc.js": true
   }
 }
